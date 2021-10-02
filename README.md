@@ -7,10 +7,10 @@
 * [Setup](#setup)
 
 ## Description
-This project is a library that allows you to create a window look like to linux gui, into a website.
+This project is a library that allows you to create a window look like linux gui, into a website.
 It's developed only in Javascript.
 
-![image](https://user-images.githubusercontent.com/46485459/135722348-9b10022d-bf76-42ee-ba94-7a7b2ccb5c37.png)
+![image](https://user-images.githubusercontent.com/46485459/135723707-ac0c8fe9-fbe7-4d3d-a2b7-85d5a6378e6c.png)
 	
 ## Setup
 To use this library download the jframe.js files and place it into your project
