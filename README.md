@@ -5,8 +5,8 @@
 * [Setup](#setup)
 
 ## Description
-This project is lib can create window like linux gui theme into a website.
-It developped only in Javascript.
+This project is a library that allows you to create a window look like to linux gui, into a website.
+It's developed only in Javascript.
 	
 ## Setup
 To use this library download the jframe.js files and place it into your project
