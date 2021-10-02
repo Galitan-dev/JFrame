@@ -1,7 +1,7 @@
 # jframe
 
 ## Table of contents
-* [General info](#description)
+* [Description](#description)
 * [Setup](#setup)
 
 ## Description
