@@ -1,5 +1,7 @@
 # JFrame
 
+> If you encounter a problem [join the discord and go to the support](https://discord.gg/8BnPPR89MG).
+
 ## Table of contents
 * [Description](#description)
 * [Setup](#setup)
