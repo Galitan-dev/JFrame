@@ -1,4 +1,4 @@
-# jframe
+# JFrame
 
 ## Table of contents
 * [Description](#description)
