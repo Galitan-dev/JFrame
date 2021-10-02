@@ -1,5 +1,16 @@
 # jframe
 
+## Table of contents
+* [General info](#description)
+* [Setup](#setup)
+
+## Description
+This project is lib can create window like linux gui theme into a website.
+It developped only in Javascript.
+	
+## Setup
+To use this library download the jframe.js files and place it into your project
+
 Code exemple :
 
 ```
