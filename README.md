@@ -25,7 +25,8 @@ Code exemple :
         title: "New Frame",
         height: 700,
         width: 900,
-        src: "file.html / url"
+        src: "file.html / url",
+	frame: true
     })
 </script>
 ```
