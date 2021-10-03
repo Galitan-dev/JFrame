@@ -25,7 +25,7 @@ Download the jframe.js file and place it in your project.
 
 ### Distant library
 
-Link the jframe.js file hosted on github.
+Link the file hosted on github.
 
 ```
 <script src="https://raw.githubusercontent.com/ZirconWare/JFrame/main/jframe.js"></script>
