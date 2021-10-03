@@ -5,6 +5,8 @@
 ## Table of contents
 * [Description](#description)
 * [Setup](#setup)
+* [Tutorial](#tutorial)
+* [Documentation](#documentation)
 
 ## Description
 This project is a library that allows you to create simple and beautiful windows in a website.
@@ -29,7 +31,7 @@ Link the jframe.js file hosted on github.
 <script src="https://github.com/ZirconWare/JFrame/releases/download/{|| VERSION ||}/jframe.js"></script>
 <script src="https://github.com/ZirconWare/JFrame/releases/download/v0.3-alpha/jframe.js"></script>
 ```
-### Tutorial
+## Tutorial
 
 #### Simple Window:
 
