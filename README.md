@@ -32,7 +32,8 @@ Code exemple :
 ```
 ## DOCUMENTATION
 
-* __Settings__: all the option of a window:
+#### Window Settings:
+* **Option** :
 
     **Name**|**Value**|**Utility**
     -----|-----|-----
@@ -45,3 +46,19 @@ Code exemple :
     width|int|width of the window
     minWidth|int|minimum width of the window
     maxWidth|int|maximum width of the window
+
+
+#### Exemple:
+
+```
+new WindowJS({
+	title: "Wikipédia",
+	height: 700,
+	width: 900,
+	src: "https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"
+})
+```
+#### Create Windows:
+```
+const Windows = new JFrame({option})
+```
