@@ -13,7 +13,7 @@ It's developed only in Javascript.
 ![image](https://user-images.githubusercontent.com/46485459/135723707-ac0c8fe9-fbe7-4d3d-a2b7-85d5a6378e6c.png)
 	
 ## Setup
-* Local library :
+### Local library :
 
 Download the jframe.js file and place it in your project.
 
@@ -21,7 +21,7 @@ Download the jframe.js file and place it in your project.
 <script src="jframe.js"></script>
 ```
 
-* Distant library
+### Distant library
 
 Link the jframe.js file hosted on github.
 
