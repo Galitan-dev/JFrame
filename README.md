@@ -13,22 +13,19 @@ It's developed only in Javascript.
 ![image](https://user-images.githubusercontent.com/46485459/135723707-ac0c8fe9-fbe7-4d3d-a2b7-85d5a6378e6c.png)
 	
 ## Setup
+* Local library :
 To use this library, download the jframe.js file and place it in your project.
-
-Code exemple :
 
 ```
 <script src="jframe.js"></script>
+```
 
-<script>
-    const Windows = new WindowJS({
-        title: "New Frame",
-        height: 700,
-        width: 900,
-        src: "file.html / url",
-	frame: true
-    })
-</script>
+* Distant library
+
+To use this library, download the jframe.js file and place it in your project.
+
+```
+<script src="https://github.com/ZirconWare/JFrame/releases/download/v0.3-alpha/jframe.js"></script>
 ```
 ## DOCUMENTATION
 
