@@ -56,7 +56,13 @@ Link the jframe.js file hosted on github.
     new JFrame().Titlebar.setBackgroundColor()|String / Hex|Change background color
     new JFrame().Titlebar.setTitle()|string|title
     new JFrame().Page.setSrc()|string : link / local path|Source of the content
+    
+* **Window instance** :
 
+    **Name**|**Value**|**Return**|**Utility**
+    -----|-----|-----|------
+    JFrame.getAll|null|Array|Get a list of all window instances
+    JFrame.get|int|Jframe object|Get the object of a certain window
 
 #### Exemple:
 
