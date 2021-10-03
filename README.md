@@ -14,7 +14,8 @@ It's developed only in Javascript.
 	
 ## Setup
 * Local library :
-To use this library, download the jframe.js file and place it in your project.
+
+Download the jframe.js file and place it in your project.
 
 ```
 <script src="jframe.js"></script>
@@ -22,7 +23,7 @@ To use this library, download the jframe.js file and place it in your project.
 
 * Distant library
 
-To use this library, download the jframe.js file and place it in your project.
+Link the jframe.js file hosted on github.
 
 ```
 <script src="https://github.com/ZirconWare/JFrame/releases/download/v0.3-alpha/jframe.js"></script>
