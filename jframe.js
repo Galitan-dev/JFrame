@@ -1,4 +1,4 @@
-class JFrame{
+class JFrame {
 
     constructor(settings) {
         JFrame.instance.push(this);
@@ -9,11 +9,13 @@ class JFrame{
             height: settings.height,
             width: settings.width,
             resize: settings.resize,
-            src: settings.src
+            src: settings.src,
+            frame: settings.frame
         }
 
         var titlebar = {
-            title: settings.title
+            title: settings.title,
+            frame: settings.frame
         }
 
         // PARENT
@@ -24,13 +26,31 @@ class JFrame{
         this.windowDiv.setAttribute("class", "windows")
         this.windowDiv.setAttribute("id", "windows" + JFrame.instance.length)
 
-        this.windowDiv.style.width = settings.width + "px"
-        this.windowDiv.style.height = settings.height + "px"
         this.windowDiv.style.position = "absolute"
 
         this.windowDiv.style.border = "1px solid black"
         this.windowDiv.style.borderRadius = "4px"
         document.body.style.margin = "0"
+
+        //MAX SIZE
+        this.windowDiv.style.maxWidth = settings.maxWidth + "px"
+        this.windowDiv.style.maxHeight = settings.maxHeight + "px"
+
+        this.windowDiv.style.width = (settings.width || 600) + "px"
+        this.windowDiv.style.height = (settings.height || 400) + "px"
+
+        //CSS RESIZE
+        this.windowDiv.style.minWidth = (settings.minWidth || 600 ) + "px"
+        this.windowDiv.style.minHeight = (settings.minHeight || 400) + "px"
+        if (settings.reszeable === false){
+            this.windowDiv.style.resize = settings.reszeable
+        } else {
+            this.windowDiv.style.resize = "both"
+        }
+        this.windowDiv.style.overflow = "hidden"
+        this.windowDiv.style.maxWidth = "fit-content"
+        this.windowDiv.style.maxHeight = "fit-content"
+
 
         this.parent.appendChild(this.windowDiv)
 
@@ -56,6 +76,10 @@ class JFrame{
         // DRAG AND DROP
         this.Titlebar.DragTitle.addEventListener("mousedown", (event) => {
 
+
+            let shiftX = event.clientX - this.Titlebar.DragTitle.getBoundingClientRect().left;
+            let shiftY = event.clientY - this.Titlebar.DragTitle.getBoundingClientRect().top;
+
             // FOCUS
             this.focus()
 
@@ -67,16 +91,14 @@ class JFrame{
                 this.Titlebar.DragTitle.addEventListener("mousemove", (event) => {
 
                     if (drag){
-                        this.windowDiv.style.left = event.pageX - this.Titlebar.DragTitle.offsetWidth / 2 + 'px';
-                        this.windowDiv.style.top = event.pageY - this.Titlebar.DragTitle.offsetHeight / 2 + 'px';
+                        this.drag(event, {x: shiftX, y:shiftY})
                     }
 
                 })
 
                 this.Titlebar.DragTitle.addEventListener("mouseleave", (event) => {
                     if (drag){
-                        this.windowDiv.style.left = event.pageX - this.Titlebar.DragTitle.offsetWidth / 2 + 'px';
-                        this.windowDiv.style.top = event.pageY - this.Titlebar.DragTitle.offsetHeight / 2 + 'px';
+                        this.drag(event, {x: shiftX, y:shiftY})
                     }
                 })
 
@@ -111,6 +133,7 @@ class JFrame{
             if (this.maximize){
                 this.setUnMaximise()
             } else {
+                this.size = [this.windowDiv.offsetWidth, this.windowDiv.offsetHeight]
                 this.setMaximise()
             }
         })
@@ -142,7 +165,7 @@ class JFrame{
 
     setMaximise() {
         this.windowDiv.style.width = window.innerWidth - 10 + "px"
-        this.windowDiv.style.height = window.innerHeight - 10 + "px"
+        this.windowDiv.style.height = window.innerHeight - 15 + "px"
 
         this.windowDiv.style.left = 0;
         this.windowDiv.style.top = 0;
@@ -154,8 +177,8 @@ class JFrame{
     }
     setUnMaximise(settings) {
 
-        this.windowDiv.style.width = this.settings.width + "px"
-        this.windowDiv.style.height = this.settings.height + "px"
+        this.windowDiv.style.width = this.size[0] + "px"
+        this.windowDiv.style.height = this.size[1] + "px"
 
         let random_x = Math.floor(Math.random() * 50);
         let random_y = Math.floor(Math.random() * 50);
@@ -180,6 +203,15 @@ class JFrame{
         this.windowDiv.style.display = "absolute";
         this.displayed = true
 
+    }
+    drag(event, shift){
+        this.windowDiv.style.left = event.pageX - shift.x + 'px';
+        this.windowDiv.style.top = event.pageY - shift.y + 'px';
+    }
+
+    setPos(x, y){
+        this.windowDiv.style.left = x;
+        this.windowDiv.style.top = y;
     }
 
     static instance = [];
@@ -261,10 +293,18 @@ class Titlebar {
         this.CloseButton.style.margin = "4px"
 
         this.Close.appendChild(this.CloseButton)
+
+        if (this.settings.frame == false){
+            this.TitlebarDiv.style.display = "none"
+        }
     }
 
     setTitle (name) {
         this.title.innerHTML = settings.title || "Windows"
+    }
+
+    setBackgroundColor(color){
+        this.title.style.backgroundColor = color
     }
 
 }
@@ -298,6 +338,11 @@ class Page {
         this.PageDiv.appendChild(this.iframe)
 
         windowDiv.appendChild(this.PageDiv)
+
+
+        if (this.settings.frame == false){
+            this.PageDiv.style.height = "100%"
+        }
 
     }
 
