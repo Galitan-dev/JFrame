@@ -29,7 +29,9 @@ Link the jframe.js file hosted on github.
 <script src="https://github.com/ZirconWare/JFrame/releases/download/{|| VERSION ||}/jframe.js"></script>
 <script src="https://github.com/ZirconWare/JFrame/releases/download/v0.3-alpha/jframe.js"></script>
 ```
-#### Exemple:
+### Tutorial
+
+#### Simple Window:
 
 ```
 new WindowJS({
@@ -39,7 +41,7 @@ new WindowJS({
 	src: "https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"
 })
 ```
-#### Create Windows:
+#### Create Window:
 ```
 const Windows = new JFrame({option})
 ```
