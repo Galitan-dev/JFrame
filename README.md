@@ -46,23 +46,23 @@ Link the jframe.js file hosted on github.
     maxWidth|int|Maximum width
     
 
-* **Window Settings** :
+* **Window Function** :
 
     **Name**|**Value**|**Utility**
     -----|-----|-----
-    new JFrame().setMaximise|null|Maximise
-    new JFrame().setUnMaximise|null|Unmaximise
-    new JFrame().setPos|boolean|Set the window pos
-    new JFrame().Titlebar.setBackgroundColor()|String / Hex|Change background color
-    new JFrame().Titlebar.setTitle()|string|title
-    new JFrame().Page.setSrc()|string : link / local path|Source of the content
+    new JFrame().setMaximise()|null|Maximise
+    new JFrame().setUnMaximise()|null|Unmaximise
+    new JFrame().setPos(int, int)|int|Set the window pos
+    new JFrame().Titlebar.setBackgroundColor(string)|String / Hex|Change background color
+    new JFrame().Titlebar.setTitle(string)|string|title
+    new JFrame().Page.setSrc(string)|string : link / local path|Source of the content
     
 * **Window instance** :
 
     **Name**|**Value**|**Return**|**Utility**
     -----|-----|-----|------
-    JFrame.getAll|null|Array|Get a list of all window instances
-    JFrame.get|int|Jframe object|Get the object of a certain window
+    JFrame.getAll()|null|Array|Get a list of all window instances
+    JFrame.get(int)|int|Jframe object|Get the object of a certain window
 
 #### Exemple:
 
