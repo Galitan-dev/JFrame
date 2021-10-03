@@ -346,4 +346,8 @@ class Page {
 
     }
 
+    setSrc (src) {
+        this.iframe.setAttribute("src", src)
+    }
+
 }
