@@ -31,20 +31,31 @@ Link the jframe.js file hosted on github.
 ```
 ## DOCUMENTATION
 
-#### Window Settings:
-* **Option** :
+* **Window Settings** :
 
     **Name**|**Value**|**Utility**
     -----|-----|-----
     title|string|Name of the window
-    src|string : link / local path|Source of the window content
-    frame|boolean|Remove the edge of the window
-    height|int|Height of the window
-    minHeight|int|Minimum height of the window
-    maxHeight|int|Maximum height of the window
-    width|int|Width of the window
-    minWidth|int|Minimum width of the window
-    maxWidth|int|Maximum width of the window
+    src|string : link / local path|Source of the content
+    frame|boolean|Remove the edge
+    height|int|Height
+    minHeight|int|Minimum heigh
+    maxHeight|int|Maximum height
+    width|int|Width
+    minWidth|int|Minimum width
+    maxWidth|int|Maximum width
+    
+
+* **Window Settings** :
+
+    **Name**|**Value**|**Utility**
+    -----|-----|-----
+    new JFrame().setMaximise|null|Maximise
+    new JFrame().setUnMaximise|null|Unmaximise
+    new JFrame().setPos|boolean|Set the window pos
+    new JFrame().Titlebar.setBackgroundColor()|String / Hex|Change background color
+    new JFrame().Titlebar.setTitle()|string|title
+    new JFrame().Page.setSrc()|string : link / local path|Source of the content
 
 
 #### Exemple:
