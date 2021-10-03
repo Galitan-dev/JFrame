@@ -10,7 +10,6 @@
 
 ## Description
 This project is a library that allows you to create simple and beautiful windows in a website.
-It's developed only in Javascript.
 
 ![image](https://user-images.githubusercontent.com/46485459/135723707-ac0c8fe9-fbe7-4d3d-a2b7-85d5a6378e6c.png)
 	
