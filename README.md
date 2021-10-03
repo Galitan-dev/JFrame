@@ -38,14 +38,14 @@ Code exemple :
     **Name**|**Value**|**Utility**
     -----|-----|-----
     title|string|Name of the window
-    src|string : link / local path|source of the window content
-    frame|boolean|remove the edge of the window
-    height|int|height of the window
-    minHeight|int|minimum width of the window
-    maxHeight|int|maximum width of the window
-    width|int|width of the window
-    minWidth|int|minimum width of the window
-    maxWidth|int|maximum width of the window
+    src|string : link / local path|Source of the window content
+    frame|boolean|Remove the edge of the window
+    height|int|Height of the window
+    minHeight|int|Minimum height of the window
+    maxHeight|int|Maximum height of the window
+    width|int|Width of the window
+    minWidth|int|Minimum width of the window
+    maxWidth|int|Maximum width of the window
 
 
 #### Exemple:
