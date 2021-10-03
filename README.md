@@ -26,6 +26,7 @@ Download the jframe.js file and place it in your project.
 Link the jframe.js file hosted on github.
 
 ```
+<script src="https://github.com/ZirconWare/JFrame/releases/download/{|| VERSION ||}/jframe.js"></script>
 <script src="https://github.com/ZirconWare/JFrame/releases/download/v0.3-alpha/jframe.js"></script>
 ```
 ## DOCUMENTATION
