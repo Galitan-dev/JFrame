@@ -29,6 +29,21 @@ Link the jframe.js file hosted on github.
 <script src="https://github.com/ZirconWare/JFrame/releases/download/{|| VERSION ||}/jframe.js"></script>
 <script src="https://github.com/ZirconWare/JFrame/releases/download/v0.3-alpha/jframe.js"></script>
 ```
+#### Exemple:
+
+```
+new WindowJS({
+	title: "Wikipédia",
+	height: 700,
+	width: 900,
+	src: "https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"
+})
+```
+#### Create Windows:
+```
+const Windows = new JFrame({option})
+```
+
 ## DOCUMENTATION
 
 * **Window Settings** :
@@ -63,18 +78,3 @@ Link the jframe.js file hosted on github.
     -----|-----|-----|------
     JFrame.getAll()|null|Array|Get a list of all window instances
     JFrame.get(int)|int|Jframe object|Get the object of a certain window
-
-#### Exemple:
-
-```
-new WindowJS({
-	title: "Wikipédia",
-	height: 700,
-	width: 900,
-	src: "https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"
-})
-```
-#### Create Windows:
-```
-const Windows = new JFrame({option})
-```
