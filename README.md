@@ -118,3 +118,9 @@ const taskbar = new Taskbar({option})
     Titlebar Reduce Button|windows selector > page > close > p|class > class > class > HTMLElement
     Titlebar Maximise Button|windows selector > page > close > p|class > class > class > HTMLElement
     Titlebar Close Button|windows selector > page > close > p|class > class > class > HTMLElement
+    
+* **Taskbar** :
+
+    **Name**|**Selector**|**Type**
+    -----|-----|-----
+
