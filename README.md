@@ -45,6 +45,13 @@ new JFrame({
 ```
 const Windows = new JFrame({option})
 ```
+### Create Taskbar
+```
+new Taskbar({
+    position: 0,
+    height: 40
+})
+```
 
 ## DOCUMENTATION
 
@@ -80,3 +87,10 @@ const Windows = new JFrame({option})
     -----|-----|-----|------
     JFrame.getAll()|null|Array|Get a list of all window instances
     JFrame.get(int)|int|Jframe object|Get the object of a certain window
+    
+* **Taskbar** :
+
+    **Name**|**Value**|**Return**|**Utility**
+    -----|-----|-----|------
+    TaskbarItem.getAll()|null|Array|Get a list of all taskbar item instances
+    TaskbarItem.get(int)|int|TaskbarItem object|Get the object of a certain taskbar item
