@@ -107,3 +107,7 @@ new Taskbar({
     Titlebar Reduce Div|windows > page > reduce|class > class > class
     Titlebar Maximise Div|windows > page > maximise|class > class > class
     Titlebar Reduce Div|windows > page > close|class > class > class
+    Titlebar Title Text|windows > page > close > p|class > class > class > HTMLElement
+    Titlebar Reduce Button|windows > page > close > p|class > class > class > HTMLElement
+    Titlebar Maximise Button|windows > page > close > p|class > class > class > HTMLElement
+    Titlebar Close Button|windows > page > close > p|class > class > class > HTMLElement
