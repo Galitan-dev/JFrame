@@ -41,16 +41,21 @@ new JFrame({
 	src: "https://fr.wikipedia.org/wiki/Wikip%C3%A9dia:Accueil_principal"
 })
 ```
+#### Simple Taskbar:
+
+```
+new Taskbar({
+    position: 1,
+    height: 40
+})
+```
 #### Create Window:
 ```
 const Windows = new JFrame({option})
 ```
 #### Create Taskbar
 ```
-new Taskbar({
-    position: 0,
-    height: 40
-})
+new Taskbar({option})
 ```
 
 ## DOCUMENTATION
