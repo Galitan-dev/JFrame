@@ -51,11 +51,11 @@ new Taskbar({
 ```
 #### Create Window:
 ```
-const Windows = new JFrame({option})
+const window = new JFrame({option})
 ```
 #### Create Taskbar
 ```
-new Taskbar({option})
+const taskbar = new Taskbar({option})
 ```
 
 ## DOCUMENTATION
