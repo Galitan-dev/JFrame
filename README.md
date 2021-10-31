@@ -100,5 +100,5 @@ new Taskbar({
 
     **Name**|**Selector**|**Type**
     -----|-----|-----
-    All Windows Instance|windows|class
-    Window Instance|windows + id|id
+    All Windows|windows|class
+    One Window|windows + id|id
