@@ -102,18 +102,19 @@ const taskbar = new Taskbar({option})
     TaskbarItem.get(int)|int|TaskbarItem object|Get the object of a certain taskbar item
 ## Custom CSS
 
-* **All Windows** :
+* **Windows** :
 
     **Name**|**Selector**|**Type**
     -----|-----|-----
-    Windows|windows|class
-    Titlebar|windows > header|class > class
-    Page|windows > page|id > class
-    Titlebar Title Div|windows > page > title|class > class > class
-    Titlebar Reduce Div|windows > page > reduce|class > class > class
-    Titlebar Maximise Div|windows > page > maximise|class > class > class
-    Titlebar Reduce Div|windows > page > close|class > class > class
-    Titlebar Title Text|windows > page > close > p|class > class > class > HTMLElement
-    Titlebar Reduce Button|windows > page > close > p|class > class > class > HTMLElement
-    Titlebar Maximise Button|windows > page > close > p|class > class > class > HTMLElement
-    Titlebar Close Button|windows > page > close > p|class > class > class > HTMLElement
+    All Windows|windows|class
+    One Windows|windows + id|id
+    Titlebar|windows selector > header|class > class
+    Page|windows selector > page|id > class
+    Titlebar Title Div|windows selector > page > title|class > class > class
+    Titlebar Reduce Div|windows selector > page > reduce|class > class > class
+    Titlebar Maximise Div|windows selector > page > maximise|class > class > class
+    Titlebar Reduce Div|windows selector > page > close|class > class > class
+    Titlebar Title Text|windows selector > page > close > p|class > class > class > HTMLElement
+    Titlebar Reduce Button|windows selector > page > close > p|class > class > class > HTMLElement
+    Titlebar Maximise Button|windows selector > page > close > p|class > class > class > HTMLElement
+    Titlebar Close Button|windows selector > page > close > p|class > class > class > HTMLElement
