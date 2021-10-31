@@ -95,11 +95,14 @@ new Taskbar({
     TaskbarItem.getAll()|null|Array|Get a list of all taskbar item instances
     TaskbarItem.get(int)|int|TaskbarItem object|Get the object of a certain taskbar item
 ## Customize CSS
-#### Create Window:
+
+#### Customize Jframe:
+```css
+body {
+	color: white;
+}
 ```
-const Windows = new JFrame({option})
-```
-#### Create Taskbar
+#### Customize Taskbar
 ```
 new Taskbar({
     position: 0,
