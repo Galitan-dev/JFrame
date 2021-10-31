@@ -43,8 +43,8 @@ class JFrame {
         this.windowDiv.style.height = (settings.height || 400) + "px"
 
         //CSS RESIZE
-        this.windowDiv.style.minWidth = (settings.minWidth || 600 ) + "px"
-        this.windowDiv.style.minHeight = (settings.minHeight || 400) + "px"
+        this.windowDiv.style.minWidth = (settings.minWidth || 200 ) + "px"
+        this.windowDiv.style.minHeight = (settings.minHeight || 100) + "px"
         if (settings.reszeable === false){
             this.windowDiv.style.resize = settings.reszeable
         } else {
@@ -65,15 +65,7 @@ class JFrame {
         this.displayed = true
 
         // START CENTER
-        let random_x = Math.floor(Math.random() * 50);
-        let random_y = Math.floor(Math.random() * 50);
-
-        if (random_x % 2){ random_x = random_x * -1 }
-        if (random_y % 2){ random_y = random_y * -1 }
-
-        this.windowDiv.style.left = (window.innerWidth / 2 - this.windowDiv.offsetWidth / 2) + random_x + 'px';
-        this.windowDiv.style.top = (window.innerHeight / 2 - this.windowDiv.offsetHeight / 2) + random_y + 'px';
-
+        this.center()
 
 
         // DRAG AND DROP
@@ -149,19 +141,41 @@ class JFrame {
             this.Titlebar.MaximiseButton.style.backgroundColor = "#ffa041"
         })
 
+        // REDUCE BUTTON
+        this.Titlebar.ReduceButton.addEventListener("click", () => {
+            this.reduce()
+        })
+        this.Titlebar.ReduceButton.addEventListener("mouseenter", () => {
+            this.Titlebar.ReduceButton.style.backgroundColor = "#1aa81f"
+        })
+        this.Titlebar.ReduceButton.addEventListener("mouseleave", () => {
+            this.Titlebar.ReduceButton.style.backgroundColor = "#1dd123"
+        })
+
         this.focus()
+    }
+
+    center(){
+        let random_x = Math.floor(Math.random() * 50);
+        let random_y = Math.floor(Math.random() * 50);
+
+        if (random_x % 2){ random_x = random_x * -1 }
+        if (random_y % 2){ random_y = random_y * -1 }
+
+        this.windowDiv.style.left = (window.innerWidth / 2 - this.windowDiv.offsetWidth / 2) + random_x + 'px';
+        this.windowDiv.style.top = (window.innerHeight / 2 - this.windowDiv.offsetHeight / 2) + random_y + 'px';
     }
 
     get_name(){
         return this.Titlebar.title.innerText
     }
 
-    getAll() {
+    static getAll() {
         return JFrame.instance
     }
 
 
-    get(index){
+    static get(index){
         return JFrame.instance[index]
     }
 
@@ -171,6 +185,9 @@ class JFrame {
             instance.windowDiv.style.zIndex = 2;
         }
         this.windowDiv.style.zIndex = 3;
+
+        this.windowDiv.style.display = "block"
+        this.displayed = true
 
     }
 
@@ -189,16 +206,16 @@ class JFrame {
         this.windowDiv.style.width = this.size[0] + "px"
         this.windowDiv.style.height = this.size[1] + "px"
 
-        let random_x = Math.floor(Math.random() * 50);
-        let random_y = Math.floor(Math.random() * 50);
-
-        if (random_x % 2){ random_x = random_x * -1 }
-        if (random_y % 2){ random_y = random_y * -1 }
-
-        this.windowDiv.style.left = (window.innerWidth / 2 - this.windowDiv.offsetWidth / 2) + random_x + 'px';
-        this.windowDiv.style.top = (window.innerHeight / 2 - this.windowDiv.offsetHeight / 2) + random_y + 'px';
+        this.center()
 
         this.maximize = false
+    }
+
+    reduce() {
+
+        this.windowDiv.style.display = "none"
+        this.displayed = false
+
     }
 
     close() {
@@ -241,7 +258,7 @@ class Titlebar {
 
         // grid
         this.TitlebarDiv.style.display = "grid"
-        this.TitlebarDiv.style.gridTemplateColumns = "1fr repeat(2, 30px) 0"
+        this.TitlebarDiv.style.gridTemplateColumns = "1fr repeat(3, 30px) 0"
         this.TitlebarDiv.style.gridTemplateRows = "1fr"
         this.TitlebarDiv.style.gridColumnGap = "5px"
 
@@ -273,6 +290,21 @@ class Titlebar {
 
         this.DragTitle.appendChild(this.title)
 
+        //
+
+        this.Reduce = document.createElement("div");
+        this.TitlebarDiv.appendChild(this.Reduce)
+
+        this.ReduceButton = document.createElement("p")
+
+        this.ReduceButton.style.backgroundColor = "#1dd123"
+        this.ReduceButton.style.borderRadius = "20px"
+        this.ReduceButton.style.border = "1px black solid"
+        this.ReduceButton.style.width = "18px"
+        this.ReduceButton.style.height = "18px"
+        this.ReduceButton.style.margin = "4px"
+
+        this.Reduce.appendChild(this.ReduceButton)
         //
 
         this.Maximise = document.createElement("div");
@@ -398,7 +430,7 @@ class Taskbar {
         this.taskbarDiv.appendChild(this.taskbarUl)
 
         for (let frame of JFrame.instance){
-            new TaskbarItem(frame.get_name(), this.taskbarUl, this.height)
+            new TaskbarItem(frame.get_name(), this.taskbarUl, this.height, frame)
         }
 
     }
@@ -406,18 +438,46 @@ class Taskbar {
 
 class TaskbarItem{
 
-    constructor(name, parent, height) {
+    constructor(name, parent, height, element) {
         TaskbarItem.instance.push(this);
         this.name = name
 
         //WINDOWS LIST
         this.taskbarLi = document.createElement("li");
+
+        this.taskbarLi.addEventListener('click', () => {
+
+            if (JFrame.get(element.id).displayed){
+                JFrame.get(element.id).reduce()
+            } else {
+                JFrame.get(element.id).focus()
+            }
+        })
+
+        this.taskbarLi.addEventListener('mouseenter', () => {
+            this.taskbarLi.style.backgroundColor = "#212121"
+        })
+        this.taskbarLi.addEventListener('mouseleave', () => {
+            this.taskbarLi.style.backgroundColor = "#161616"
+        })
+
         this.taskbarLi.innerText = name
 
         this.taskbarLi.style.height = height + "px"
-        this.taskbarLi.style.padding = "10px 20px"
-        this.taskbarLi.style.backgroundColor = "red"
+        this.taskbarLi.style.padding = "0px 20px"
+        this.taskbarLi.style.backgroundColor = "#161616"
+        this.taskbarLi.style.borderRight = "#202020 solid 4px"
         this.taskbarLi.style.float = "left"
+        this.taskbarLi.style.cursor = "pointer"
+        this.taskbarLi.style.userSelect = "none"
+
+        this.taskbarLi.style.textAlign = "center"
+        this.taskbarLi.style.color = "#a5a5a5"
+        this.taskbarLi.style.fontFamily = '"Gill Sans", sans-serif'
+        this.taskbarLi.style.fontWeight = "600"
+        this.taskbarLi.style.letterSpacing = "0.5px"
+        this.taskbarLi.style.fontSize = "13px"
+        this.taskbarLi.style.lineHeight = height + "px"
 
         parent.appendChild(this.taskbarLi)
     }
@@ -439,5 +499,6 @@ class TaskbarItem{
 
 class Desktop{
     constructor() {
+        
     }
 }
