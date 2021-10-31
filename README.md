@@ -101,5 +101,9 @@ new Taskbar({
     **Name**|**Selector**|**Type**
     -----|-----|-----
     Windows|windows|class
-    Titlebar|windows > header|id > class
+    Titlebar|windows > header|class > class
     Page|windows > page|id > class
+    Titlebar Title|windows > page > title|class > class > class
+    Titlebar Reduce Div|windows > page > reduce|class > class > class
+    Titlebar Maximise Div|windows > page > maximise|class > class > class
+    Titlebar Reduce Div|windows > page > close|class > class > class
