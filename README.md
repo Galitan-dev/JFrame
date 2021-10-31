@@ -7,7 +7,7 @@
 * [Setup](#setup)
 * [Tutorial](#tutorial)
 * [Documentation](#documentation)
-* [Custom CSS](#custom css)
+* [CSS](#css)
 
 ## Description
 This project is a library that allows you to create simple and beautiful windows in a website.
@@ -100,7 +100,7 @@ const taskbar = new Taskbar({option})
     -----|-----|-----|------
     TaskbarItem.getAll()|null|Array|Get a list of all taskbar item instances
     TaskbarItem.get(int)|int|TaskbarItem object|Get the object of a certain taskbar item
-## Custom CSS
+## CSS
 
 * **Windows** :
 
