@@ -12,8 +12,8 @@
 ## Description
 This project is a library that allows you to create simple and beautiful windows in a website.
 
-![image](https://user-images.githubusercontent.com/46485459/135723707-ac0c8fe9-fbe7-4d3d-a2b7-85d5a6378e6c.png)
-	
+![jframe](https://user-images.githubusercontent.com/46485459/139577353-fb3977c4-efb0-47b6-a1e4-593c7c7fd440.png)
+
 ## Setup
 ### Local library :
 
