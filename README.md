@@ -96,9 +96,9 @@ new Taskbar({
     TaskbarItem.get(int)|int|TaskbarItem object|Get the object of a certain taskbar item
 ## Customize CSS
 
-* **CSS Selector** :
+* **All Windows** :
 
     **Name**|**Selector**|**Type**
     -----|-----|-----
-    All Windows|windows|class
-    One Window|windows + id|id
+    Windows|windows|class
+    Titlebar|windows > header|id > class
