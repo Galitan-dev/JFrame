@@ -59,7 +59,7 @@ const window = new JFrame({option})
 const taskbar = new Taskbar({option})
 ```
 
-## DOCUMENTATION
+## Documentation
 
 * **Window Settings** :
 
@@ -100,7 +100,7 @@ const taskbar = new Taskbar({option})
     -----|-----|-----|------
     TaskbarItem.getAll()|null|Array|Get a list of all taskbar item instances
     TaskbarItem.get(int)|int|TaskbarItem object|Get the object of a certain taskbar item
-## CSS
+## Css
 
 * **Windows** :
 
