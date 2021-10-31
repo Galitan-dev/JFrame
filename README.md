@@ -10,7 +10,7 @@
 * [CSS](#css)
 
 ## Description
-This project is a library that allows you to create simple and beautiful windows in a website.
+This project is a library that allows you to create simple and modern windows in a website.
 
 ![jframe](https://user-images.githubusercontent.com/46485459/139577353-fb3977c4-efb0-47b6-a1e4-593c7c7fd440.png)
 
