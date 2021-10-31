@@ -1,6 +1,6 @@
 class JFrame {
 
-    constructor(settings) {
+    constructor(settings = {}) {
         JFrame.instance.push(this);
 
         this.settings = settings
@@ -135,10 +135,10 @@ class JFrame {
             }
         })
         this.Titlebar.MaximiseButton.addEventListener("mouseenter", () => {
-            this.Titlebar.MaximiseButton.style.backgroundColor = "#cc7e29"
+            this.Titlebar.ReduceButton.style.backgroundColor = "#1aa81f"
         })
         this.Titlebar.MaximiseButton.addEventListener("mouseleave", () => {
-            this.Titlebar.MaximiseButton.style.backgroundColor = "#ffa041"
+            this.Titlebar.ReduceButton.style.backgroundColor = "#1dd123"
         })
 
         // REDUCE BUTTON
@@ -146,10 +146,10 @@ class JFrame {
             this.reduce()
         })
         this.Titlebar.ReduceButton.addEventListener("mouseenter", () => {
-            this.Titlebar.ReduceButton.style.backgroundColor = "#1aa81f"
+            this.Titlebar.MaximiseButton.style.backgroundColor = "#cc7e29"
         })
         this.Titlebar.ReduceButton.addEventListener("mouseleave", () => {
-            this.Titlebar.ReduceButton.style.backgroundColor = "#1dd123"
+            this.Titlebar.MaximiseButton.style.backgroundColor = "#ffa041"
         })
 
         this.focus()
@@ -274,6 +274,7 @@ class Titlebar {
 
         // ICON TITLE
         this.DragTitle = document.createElement("div");
+        this.DragTitle.setAttribute("class", "title")
 
         this.TitlebarDiv.appendChild(this.DragTitle)
 
@@ -293,6 +294,7 @@ class Titlebar {
         //
 
         this.Reduce = document.createElement("div");
+        this.Reduce.setAttribute("class", "reduce")
         this.TitlebarDiv.appendChild(this.Reduce)
 
         this.ReduceButton = document.createElement("p")
@@ -308,6 +310,7 @@ class Titlebar {
         //
 
         this.Maximise = document.createElement("div");
+        this.Maximise.setAttribute("class", "maximise")
         this.TitlebarDiv.appendChild(this.Maximise)
 
         this.MaximiseButton = document.createElement("p")
@@ -324,6 +327,7 @@ class Titlebar {
         //
 
         this.Close = document.createElement("div");
+        this.Close.setAttribute("class", "close")
         this.TitlebarDiv.appendChild(this.Close)
 
         this.CloseButton = document.createElement("p")
@@ -396,44 +400,49 @@ class Page {
 }
 
 class Taskbar {
-    constructor(settings) {
+    constructor(settings = {}) {
+        if (Taskbar.instance.length < 1){
 
-        //TASKBAR
-        this.position = settings.position
-        this.height = settings.height
+            Taskbar.instance.push(this);
 
-        this.taskbarDiv = document.createElement("div");
-        this.taskbarDiv.setAttribute("class", "taskbsar")
-        this.taskbarDiv.setAttribute("id", "tasksbar")
+            //TASKBAR
+            this.position = settings.position || 1
+            this.height = settings.height || 40
 
-        this.taskbarDiv.style.position = "absolute"
+            this.taskbarDiv = document.createElement("div");
+            this.taskbarDiv.setAttribute("class", "taskbsar")
+            this.taskbarDiv.setAttribute("id", "tasksbar")
 
-        if (this.position ===  0){
-            this.taskbarDiv.style.top = 0
-        } else if (this.position === 1){
-            this.taskbarDiv.style.bottom = 0
-        }
-        this.taskbarDiv.style.width = "100%"
-        this.taskbarDiv.style.height = this.height + "px"
+            this.taskbarDiv.style.position = "absolute"
 
-        this.taskbarDiv.style.backgroundColor = "#161616"
-        this.taskbarDiv.style.zIndex = 1;
+            if (this.position ===  0){
+                this.taskbarDiv.style.top = 0
+            } else if (this.position === 1){
+                this.taskbarDiv.style.bottom = 0
+            }
+            this.taskbarDiv.style.width = "100%"
+            this.taskbarDiv.style.height = this.height + "px"
 
-        document.body.appendChild(this.taskbarDiv)
+            this.taskbarDiv.style.backgroundColor = "#161616"
+            this.taskbarDiv.style.zIndex = 1;
 
-        //WINDOWS LIST
-        this.taskbarUl = document.createElement("ul");
-        this.taskbarUl.style.margin = 0
-        this.taskbarUl.style.padding = 0
-        this.taskbarUl.style.listStyleType = "none"
+            document.body.appendChild(this.taskbarDiv)
 
-        this.taskbarDiv.appendChild(this.taskbarUl)
+            //WINDOWS LIST
+            this.taskbarUl = document.createElement("ul");
+            this.taskbarUl.style.margin = 0
+            this.taskbarUl.style.padding = 0
+            this.taskbarUl.style.listStyleType = "none"
 
-        for (let frame of JFrame.instance){
-            new TaskbarItem(frame.get_name(), this.taskbarUl, this.height, frame)
+            this.taskbarDiv.appendChild(this.taskbarUl)
+
+            for (let frame of JFrame.instance){
+                new TaskbarItem(frame.get_name(), this.taskbarUl, this.height, frame)
+            }
         }
 
     }
+    static instance = [];
 }
 
 class TaskbarItem{
@@ -499,6 +508,6 @@ class TaskbarItem{
 
 class Desktop{
     constructor() {
-        
+
     }
 }
