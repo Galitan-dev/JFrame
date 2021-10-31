@@ -102,3 +102,4 @@ new Taskbar({
     -----|-----|-----
     Windows|windows|class
     Titlebar|windows > header|id > class
+    Page|windows > page|id > class
