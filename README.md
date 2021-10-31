@@ -34,7 +34,7 @@ Link the file hosted on github.
 #### Simple Window:
 
 ```
-new WindowJS({
+new JFrame({
 	title: "Wikipédia",
 	height: 700,
 	width: 900,
