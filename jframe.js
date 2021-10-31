@@ -4,19 +4,20 @@ class JFrame {
         JFrame.instance.push(this);
 
         this.settings = settings
+        this.id = JFrame.instance.length - 1
 
-        var page = {
+        let page = {
             height: settings.height,
             width: settings.width,
             resize: settings.resize,
             src: settings.src,
             frame: settings.frame
-        }
+        };
 
-        var titlebar = {
+        let titlebar = {
             title: settings.title,
             frame: settings.frame
-        }
+        };
 
         // PARENT
         this.parent = settings.parent || document.body
@@ -30,7 +31,9 @@ class JFrame {
 
         this.windowDiv.style.border = "1px solid black"
         this.windowDiv.style.borderRadius = "4px"
+
         document.body.style.margin = "0"
+        document.body.style.overflow = "hidden"
 
         //MAX SIZE
         this.windowDiv.style.maxWidth = settings.maxWidth + "px"
@@ -40,8 +43,8 @@ class JFrame {
         this.windowDiv.style.height = (settings.height || 400) + "px"
 
         //CSS RESIZE
-        this.windowDiv.style.minWidth = (settings.minWidth || 600 ) + "px"
-        this.windowDiv.style.minHeight = (settings.minHeight || 400) + "px"
+        this.windowDiv.style.minWidth = (settings.minWidth || 200 ) + "px"
+        this.windowDiv.style.minHeight = (settings.minHeight || 100) + "px"
         if (settings.reszeable === false){
             this.windowDiv.style.resize = settings.reszeable
         } else {
@@ -62,15 +65,7 @@ class JFrame {
         this.displayed = true
 
         // START CENTER
-        let random_x = Math.floor(Math.random() * 50);
-        let random_y = Math.floor(Math.random() * 50);
-
-        if (random_x % 2){ random_x = random_x * -1 }
-        if (random_y % 2){ random_y = random_y * -1 }
-
-        this.windowDiv.style.left = (window.innerWidth / 2 - this.windowDiv.offsetWidth / 2) + random_x + 'px';
-        this.windowDiv.style.top = (window.innerHeight / 2 - this.windowDiv.offsetHeight / 2) + random_y + 'px';
-
+        this.center()
 
 
         // DRAG AND DROP
@@ -86,7 +81,7 @@ class JFrame {
             //
             if (!this.maximize){
 
-                var drag = true
+                let drag = true;
 
                 this.Titlebar.DragTitle.addEventListener("mousemove", (event) => {
 
@@ -108,11 +103,11 @@ class JFrame {
             }
         })
 
-        // RESIZE FULLSCRENN
+        // RESIZE FULLSCREEN
         window.addEventListener("resize", (event) => {
 
             if (this.maximize){
-                this.setMaximize()
+                this.setMaximise()
             }
 
         })
@@ -132,9 +127,11 @@ class JFrame {
         this.Titlebar.MaximiseButton.addEventListener("click", () => {
             if (this.maximize){
                 this.setUnMaximise()
+                this.windowDiv.style.resize = "both"
             } else {
                 this.size = [this.windowDiv.offsetWidth, this.windowDiv.offsetHeight]
                 this.setMaximise()
+                this.windowDiv.style.resize = "none"
             }
         })
         this.Titlebar.MaximiseButton.addEventListener("mouseenter", () => {
@@ -143,34 +140,63 @@ class JFrame {
         this.Titlebar.MaximiseButton.addEventListener("mouseleave", () => {
             this.Titlebar.MaximiseButton.style.backgroundColor = "#ffa041"
         })
+
+        // REDUCE BUTTON
+        this.Titlebar.ReduceButton.addEventListener("click", () => {
+            this.reduce()
+        })
+        this.Titlebar.ReduceButton.addEventListener("mouseenter", () => {
+            this.Titlebar.ReduceButton.style.backgroundColor = "#1aa81f"
+        })
+        this.Titlebar.ReduceButton.addEventListener("mouseleave", () => {
+            this.Titlebar.ReduceButton.style.backgroundColor = "#1dd123"
+        })
+
+        this.focus()
     }
 
-    getAll() {
+    center(){
+        let random_x = Math.floor(Math.random() * 50);
+        let random_y = Math.floor(Math.random() * 50);
+
+        if (random_x % 2){ random_x = random_x * -1 }
+        if (random_y % 2){ random_y = random_y * -1 }
+
+        this.windowDiv.style.left = (window.innerWidth / 2 - this.windowDiv.offsetWidth / 2) + random_x + 'px';
+        this.windowDiv.style.top = (window.innerHeight / 2 - this.windowDiv.offsetHeight / 2) + random_y + 'px';
+    }
+
+    get_name(){
+        return this.Titlebar.title.innerText
+    }
+
+    static getAll() {
         return JFrame.instance
     }
 
 
-    get(index){
+    static get(index){
         return JFrame.instance[index]
     }
 
     focus(){
 
         for (let instance of JFrame.instance){
-            instance.windowDiv.style.zIndex = -1;
+            instance.windowDiv.style.zIndex = 2;
         }
-        this.windowDiv.style.zIndex = 1;
+        this.windowDiv.style.zIndex = 3;
+
+        this.windowDiv.style.display = "block"
+        this.displayed = true
 
     }
 
     setMaximise() {
-        this.windowDiv.style.width = window.innerWidth - 10 + "px"
-        this.windowDiv.style.height = window.innerHeight - 15 + "px"
+        this.windowDiv.style.width = window.innerWidth + "px"
+        this.windowDiv.style.height = window.innerHeight + "px"
 
         this.windowDiv.style.left = 0;
         this.windowDiv.style.top = 0;
-
-        this.windowDiv.style.margin = "5px"
 
         this.maximize = true
         this.focus()
@@ -180,22 +206,24 @@ class JFrame {
         this.windowDiv.style.width = this.size[0] + "px"
         this.windowDiv.style.height = this.size[1] + "px"
 
-        let random_x = Math.floor(Math.random() * 50);
-        let random_y = Math.floor(Math.random() * 50);
-
-        if (random_x % 2){ random_x = random_x * -1 }
-        if (random_y % 2){ random_y = random_y * -1 }
-
-        this.windowDiv.style.left = (window.innerWidth / 2 - this.windowDiv.offsetWidth / 2) + random_x + 'px';
-        this.windowDiv.style.top = (window.innerHeight / 2 - this.windowDiv.offsetHeight / 2) + random_y + 'px';
+        this.center()
 
         this.maximize = false
+    }
+
+    reduce() {
+
+        this.windowDiv.style.display = "none"
+        this.displayed = false
+
     }
 
     close() {
 
         this.windowDiv.style.display = "none"
         this.displayed = false
+
+        TaskbarItem.close(this.id)
 
     }
     show() {
@@ -226,11 +254,11 @@ class Titlebar {
 
         // WINDOWS TITLE
         this.TitlebarDiv = document.createElement("div");
-        this.TitlebarDiv.setAttribute("class", "taskbar")
+        this.TitlebarDiv.setAttribute("class", "header")
 
         // grid
         this.TitlebarDiv.style.display = "grid"
-        this.TitlebarDiv.style.gridTemplateColumns = "1fr repeat(2, 30px) 0"
+        this.TitlebarDiv.style.gridTemplateColumns = "1fr repeat(3, 30px) 0"
         this.TitlebarDiv.style.gridTemplateRows = "1fr"
         this.TitlebarDiv.style.gridColumnGap = "5px"
 
@@ -262,6 +290,21 @@ class Titlebar {
 
         this.DragTitle.appendChild(this.title)
 
+        //
+
+        this.Reduce = document.createElement("div");
+        this.TitlebarDiv.appendChild(this.Reduce)
+
+        this.ReduceButton = document.createElement("p")
+
+        this.ReduceButton.style.backgroundColor = "#1dd123"
+        this.ReduceButton.style.borderRadius = "20px"
+        this.ReduceButton.style.border = "1px black solid"
+        this.ReduceButton.style.width = "18px"
+        this.ReduceButton.style.height = "18px"
+        this.ReduceButton.style.margin = "4px"
+
+        this.Reduce.appendChild(this.ReduceButton)
         //
 
         this.Maximise = document.createElement("div");
@@ -300,7 +343,7 @@ class Titlebar {
     }
 
     setTitle (name) {
-        this.title.innerHTML = settings.title || "Windows"
+        this.title.innerHTML = name || "Window"
     }
 
     setBackgroundColor(color){
@@ -350,4 +393,112 @@ class Page {
         this.iframe.setAttribute("src", src)
     }
 
+}
+
+class Taskbar {
+    constructor(settings) {
+
+        //TASKBAR
+        this.position = settings.position
+        this.height = settings.height
+
+        this.taskbarDiv = document.createElement("div");
+        this.taskbarDiv.setAttribute("class", "taskbsar")
+        this.taskbarDiv.setAttribute("id", "tasksbar")
+
+        this.taskbarDiv.style.position = "absolute"
+
+        if (this.position ===  0){
+            this.taskbarDiv.style.top = 0
+        } else if (this.position === 1){
+            this.taskbarDiv.style.bottom = 0
+        }
+        this.taskbarDiv.style.width = "100%"
+        this.taskbarDiv.style.height = this.height + "px"
+
+        this.taskbarDiv.style.backgroundColor = "#161616"
+        this.taskbarDiv.style.zIndex = 1;
+
+        document.body.appendChild(this.taskbarDiv)
+
+        //WINDOWS LIST
+        this.taskbarUl = document.createElement("ul");
+        this.taskbarUl.style.margin = 0
+        this.taskbarUl.style.padding = 0
+        this.taskbarUl.style.listStyleType = "none"
+
+        this.taskbarDiv.appendChild(this.taskbarUl)
+
+        for (let frame of JFrame.instance){
+            new TaskbarItem(frame.get_name(), this.taskbarUl, this.height, frame)
+        }
+
+    }
+}
+
+class TaskbarItem{
+
+    constructor(name, parent, height, element) {
+        TaskbarItem.instance.push(this);
+        this.name = name
+
+        //WINDOWS LIST
+        this.taskbarLi = document.createElement("li");
+
+        this.taskbarLi.addEventListener('click', () => {
+
+            if (JFrame.get(element.id).displayed){
+                JFrame.get(element.id).reduce()
+            } else {
+                JFrame.get(element.id).focus()
+            }
+        })
+
+        this.taskbarLi.addEventListener('mouseenter', () => {
+            this.taskbarLi.style.backgroundColor = "#212121"
+        })
+        this.taskbarLi.addEventListener('mouseleave', () => {
+            this.taskbarLi.style.backgroundColor = "#161616"
+        })
+
+        this.taskbarLi.innerText = name
+
+        this.taskbarLi.style.height = height + "px"
+        this.taskbarLi.style.padding = "0px 20px"
+        this.taskbarLi.style.backgroundColor = "#161616"
+        this.taskbarLi.style.borderRight = "#202020 solid 4px"
+        this.taskbarLi.style.float = "left"
+        this.taskbarLi.style.cursor = "pointer"
+        this.taskbarLi.style.userSelect = "none"
+
+        this.taskbarLi.style.textAlign = "center"
+        this.taskbarLi.style.color = "#a5a5a5"
+        this.taskbarLi.style.fontFamily = '"Gill Sans", sans-serif'
+        this.taskbarLi.style.fontWeight = "600"
+        this.taskbarLi.style.letterSpacing = "0.5px"
+        this.taskbarLi.style.fontSize = "13px"
+        this.taskbarLi.style.lineHeight = height + "px"
+
+        parent.appendChild(this.taskbarLi)
+    }
+
+    getAll() {
+        return TaskbarItem.instance
+    }
+
+    get(index){
+        return TaskbarItem.instance[index]
+    }
+
+    static close(id){
+        TaskbarItem.instance[id].taskbarLi.style.display = "none"
+    }
+
+    static instance = [];
+}
+
+class Desktop{
+    constructor() {
+        
+    }
 }
