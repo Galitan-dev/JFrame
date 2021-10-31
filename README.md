@@ -123,4 +123,7 @@ const taskbar = new Taskbar({option})
 
     **Name**|**Selector**|**Type**
     -----|-----|-----
+    Taskbar|taskbar|class
+    Taskbar List|taskbar > ul|class > HTMLElement
+    Taskbar Item|taskbar > ul > window_item|class > HTMLElement > class
 
