@@ -7,7 +7,7 @@
 * [Setup](#setup)
 * [Tutorial](#tutorial)
 * [Documentation](#documentation)
-* [Customise CSS](#customise_css)
+* [Customise CSS](#customise css)
 
 ## Description
 This project is a library that allows you to create simple and beautiful windows in a website.
