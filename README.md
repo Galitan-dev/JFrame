@@ -98,7 +98,7 @@ new Taskbar({
 
 * **CSS Selector** :
 
-    **Name**|**Selector**
-    -----|-----
-    All Windows Instance|.windows
-    Certain Windows Instance|#windows + id
+    **Name**|**Selector**|**Type**
+    -----|-----|-----
+    All Windows Instance|windows|class
+    Certain Windows Instance|windows + id|id
