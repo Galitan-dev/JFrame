@@ -31,6 +31,8 @@ class Application {
         this.options = options
         this.isOpen = false
         this.id = id
+        this.displayed = false
+        this.maximize = false
 
         if (this.options.desktop){
             Desktop.addApplication(this)
@@ -43,15 +45,82 @@ class Application {
         } else {
             Taskbar.registerNewTaskbarApp(this, Jframe.computerInstance.getTaskbar().taskbarUl, Jframe.computerInstance.getTaskbar().options)
             this.isOpen = true
+            this.createFrame()
         }
+    }
+
+    createFrame() {
+        // WINDOWS DIV
+        this.windowDiv = document.createElement("div");
+        this.windowDiv.setAttribute("class", "windows")
+        this.windowDiv.setAttribute("id", "window" + Jframe.getAllApplication().length)
+
+        this.windowDiv.style.position = "absolute"
+
+        this.windowDiv.style.border = "1px solid black"
+        this.windowDiv.style.borderRadius = "8px"
+
+        document.body.style.margin = "0"
+        document.body.style.overflow = "hidden"
+
+        //MAX SIZE
+        this.windowDiv.style.maxWidth = this.options.maxWidth + "px"
+        this.windowDiv.style.maxHeight = this.options.maxHeight + "px"
+
+        this.windowDiv.style.width = (this.options.width || 600) + "px"
+        this.windowDiv.style.height = (this.options.height || 400) + "px"
+
+        //CSS RESIZE
+        this.windowDiv.style.minWidth = (this.options.minWidth || 200 ) + "px"
+        this.windowDiv.style.minHeight = (this.options.minHeight || 100) + "px"
+        if (this.options.resizeable === false){
+            this.windowDiv.style.resize = this.options.resizeable
+        } else {
+            this.windowDiv.style.resize = "both"
+        }
+        this.windowDiv.style.overflow = "hidden"
+
+
+        document.body.appendChild(this.windowDiv)
+
+        this.maximize = false
+        this.displayed = true
+        this.center()
+        this.setfocus()
     }
 
     close () {
 
     }
 
-    focus ( ) {
+    center(){
+        let random_x = Math.floor(Math.random() * 50);
+        let random_y = Math.floor(Math.random() * 50);
 
+        if (random_x % 2){ random_x = random_x * -1 }
+        if (random_y % 2){ random_y = random_y * -1 }
+
+        this.windowDiv.style.left = (window.innerWidth / 2 - this.windowDiv.offsetWidth / 2) + random_x + 'px';
+        this.windowDiv.style.top = (window.innerHeight / 2 - this.windowDiv.offsetHeight / 2) + random_y + 'px';
+    }
+
+    setfocus () {
+        for (let instance of Jframe.getAllApplication()){
+            instance.unfocus()
+        }
+        this.focus()
+    }
+
+    focus() {
+        if (this.windowDiv){
+            this.windowDiv.style.zIndex = "3"
+            this.windowDiv.style.display = "block"
+        }
+    }
+    unfocus() {
+        if (this.windowDiv){
+            this.windowDiv.style.zIndex = "2"
+        }
     }
 
     getOption () { return this.options }
@@ -61,7 +130,6 @@ class Application {
     checkIfOpen() {
         return this.isOpen
     }
-
 
 }
 
@@ -83,7 +151,6 @@ class Computer {
         this.computerDiv.style.backgroundColor = (this.options.backgroundColor || "black")
         this.computerDiv.style.backgroundImage = "url("+ this.options.backgroundImg +")"
         this.computerDiv.style.backgroundPosition = "center center"
-        this.computerDiv.style.backgroundRepeat = "no-repeat"
         this.computerDiv.style.backgroundAttachment = "fixed"
         this.computerDiv.style.backgroundSize = "cover"
 
@@ -138,6 +205,7 @@ class Taskbar {
 
         this.taskbarDiv.style.display = "grid"
         this.taskbarDiv.style.gridTemplateRows = "1fr"
+        this.taskbarDiv.style.backgroundColor = options.taskbarColor
 
         //CREATE TASKBAR UL
         this.taskbarUl = document.createElement("ul")
@@ -172,17 +240,17 @@ class TaskbarItem {
         this.app = app
 
         //CREATE TASKBAR UL
-        let li = document.createElement("li")
-        li.setAttribute("id", this.app.options.appId + "Taskbar")
-        li.style.listStyleType = "none"
-        li.style.float = "left"
-        li.style.display = "grid"
-        li.style.gridTemplateColumns = "25px 10px 25px"
-        li.style.gridTemplateRows = ( ( this.options.taskbarHeight || 60 ) - 20) + "px 15px 5px"
-        li.style.gridColumnGap = ( ( this.options.taskbarGap || 0 ) / 2 ) + "px"
-        li.style.gridRowGap = '0px'
-        li.style.cursor = 'pointer'
-        li.style.transition = 'transform 200ms ease-in-out'
+        this.li = document.createElement("li")
+        this.li.setAttribute("id", this.app.options.appId + "Taskbar")
+        this.li.style.listStyleType = "none"
+        this.li.style.float = "left"
+        this.li.style.display = "grid"
+        this.li.style.gridTemplateColumns = "25px 10px 25px"
+        this.li.style.gridTemplateRows = ( ( this.options.taskbarHeight || 60 ) - 20) + "px 15px 5px"
+        this.li.style.gridColumnGap = ( ( this.options.taskbarGap || 0 ) / 2 ) + "px"
+        this.li.style.gridRowGap = '0px'
+        this.li.style.cursor = 'pointer'
+        this.li.style.transition = 'transform 200ms ease-in-out'
 
         let style = document.createElement("style")
         style.innerHTML = "#"+ ( this.app.options.appId || app.id ) +"Taskbar:hover{transform: scale(1.1);}"
@@ -199,7 +267,7 @@ class TaskbarItem {
         img.style.width = ( this.options.taskbarIconSize || 50 ) + "px"
         img.style.height = ( this.options.taskbarIconSize || 50 ) + "px"
         img.style.margin = "auto"
-        li.appendChild(img)
+        this.li.appendChild(img)
 
         let bottomBar = document.createElement("div")
         bottomBar.style.gridArea = "3 / 2 / 4 / 3"
@@ -207,10 +275,20 @@ class TaskbarItem {
         bottomBar.style.height = "5px"
         bottomBar.style.backgroundColor = "#cbcbcb"
         bottomBar.style.borderRadius = "10px"
-        li.appendChild(bottomBar)
+        this.li.appendChild(bottomBar)
 
         //APPEND TASKBAR UL TO TASKBAR DIV
-        this.parent.appendChild(li)
+        this.parent.appendChild(this.li)
+
+        this.listener()
+    }
+
+    listener () {
+
+        this.li.addEventListener("click", () => {
+            this.app.setfocus()
+        })
+
     }
 
 }
@@ -222,8 +300,8 @@ class Desktop {
         this.desktopDiv = desktopDiv
         this.desktopDiv.style.display = "grid"
         this.desktopDiv.style.margin = "15px"
-        this.desktopDiv.style.gridTemplateColumns = "repeat(" + Math.round((this.desktopDiv.offsetWidth - 30) / (options.desktopIconSize + 10))  + ", "+ (options.desktopIconSize+10) +"px)"
-        this.desktopDiv.style.gridTemplateRows = "repeat(" + Math.round((this.desktopDiv.offsetHeight - 30) / (options.desktopIconSize + 40))  + ", "+ (options.desktopIconSize+40) +"px)"
+        this.desktopDiv.style.gridTemplateColumns = "repeat(" + Math.round((this.desktopDiv.offsetWidth - 30) / (options.desktopIconSize + 10))  + ", "+ (options.desktopIconSize + 10) +"px)"
+        this.desktopDiv.style.gridTemplateRows = "repeat(" + Math.round((this.desktopDiv.offsetHeight - 60) / (options.desktopIconSize + 60))  + ", "+ (options.desktopIconSize + 60) +"px)"
     }
 
     getDesktopDiv () {return this.desktopDiv}
