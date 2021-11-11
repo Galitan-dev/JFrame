@@ -300,8 +300,8 @@ class Desktop {
         this.desktopDiv = desktopDiv
         this.desktopDiv.style.display = "grid"
         this.desktopDiv.style.margin = "15px"
-        this.desktopDiv.style.gridTemplateColumns = "repeat(" + Math.round((this.desktopDiv.offsetWidth - 30) / (options.desktopIconSize + 10))  + ", "+ (options.desktopIconSize + 10) +"px)"
-        this.desktopDiv.style.gridTemplateRows = "repeat(" + Math.round((this.desktopDiv.offsetHeight - 60) / (options.desktopIconSize + 60))  + ", "+ (options.desktopIconSize + 60) +"px)"
+        this.desktopDiv.style.gridTemplateColumns = "repeat(" + Math.round((this.desktopDiv.offsetWidth - 30) / ( options.desktopIconSize + 10) )  + ", "+ ( options.desktopIconSize + 10) +"px)"
+        this.desktopDiv.style.gridTemplateRows = "repeat(" + Math.round(((this.desktopDiv.offsetHeight - options.taskbarHeight ) - 60) / (options.desktopIconSize + 60))  + ", "+ (options.desktopIconSize + 60) +"px)"
     }
 
     getDesktopDiv () {return this.desktopDiv}
