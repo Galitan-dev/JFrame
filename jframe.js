@@ -14,7 +14,7 @@ class Jframe {
     static getApplication (id = 0) { return this.applicationInstances[id] }
 
     //DESKTOP
-    static registerComputer(options = {}) { this.computerInstance =new Computer(options) }
+    static registerComputer(options = {}) { this.computerInstance = new Computer(options) }
 
     //INSTANCES SAVE
     static applicationInstances = []
@@ -187,6 +187,26 @@ class Computer {
             this.computerDiv.style.gridTemplateRows = '1fr'
         }
 
+        // INITIALIZE CONTEXT MENU
+        this.contextMenu = new ContextMenu(this.computerDiv, this.options)
+
+        // GLOBAL STYLE
+        let style = document.createElement("style")
+        style.innerHTML = `
+            #contextMenu li:hover {
+                background-color: ${this.options.selectColor || '#08f'};
+            }
+            .no-select {
+                -webkit-touch-callout: none; 
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                    -ms-user-select: none;
+                        user-select: none;
+            }
+        `;
+        document.head.appendChild(style)
+
     }
 
     getOption () { return this.options }
@@ -239,9 +259,10 @@ class TaskbarItem {
         this.parent = parent
         this.app = app
 
-        //CREATE TASKBAR UL
+        //CREATE TASKBAR LI
         this.li = document.createElement("li")
         this.li.setAttribute("id", this.app.options.appId + "Taskbar")
+        this.li.classList.add("no-select")
         this.li.style.listStyleType = "none"
         this.li.style.float = "left"
         this.li.style.display = "grid"
@@ -287,6 +308,117 @@ class TaskbarItem {
 
         this.li.addEventListener("click", () => {
             this.app.setfocus()
+        })
+
+        // OPEN THE CONTEXT MENU
+        this.li.addEventListener("contextmenu", event => {
+            event.preventDefault()
+
+            Jframe.computerInstance.contextMenu.open({
+                "Close window": () => {
+                    alert("Close " + this.app.id)
+                    // this.app.close()
+                },
+                "Minimize window": () => {
+                    alert("Minimize " + this.app.id)
+                    // this.app.minimize()
+                },
+                "Bring To Front": () => {
+                    this.app.setfocus()
+                }
+            }, event)
+            return false
+        })
+
+    }
+
+}
+
+class ContextMenu {
+
+    constructor(app, options) {
+
+        this.app = app;
+        this.options = options
+
+        this.div = document.createElement("div")
+        this.div.setAttribute("id", "contextMenu")
+        this.div.style.display = "none"
+        this.div.style.position = "absolute"
+        this.div.style.zIndex = 10
+        this.div.style.backgroundColor = options?.contextMenu?.backgroundColor || "#444a"
+        this.div.style.fontSize = "13px"
+        this.div.style.fontFamily = options.fontFamily || "sans-serif"
+        this.div.style.color = "white"
+        this.div.style.border = "1px solid #777"
+        this.div.style.borderRadius = "8px"
+        this.div.style.padding = "8px 4px"
+        document.body.appendChild(this.div)
+
+        this.listener()
+
+    }
+
+    open(actions, event) {
+
+        this.close()
+
+        const rect = document.body.getBoundingClientRect(), // Prevent weird margins
+            left = event.clientX - rect.left,
+            top = event.clientY - rect.top
+
+        // PREVENT DIV TO OVERFLOW THE WINDOW
+        let translateX = '0', translateY = '0'
+        if (left > document.body.clientWidth / 2) translateX = "-100%"
+        if (top > document.body.clientHeight / 2) translateY = "-100%"
+        const transform = `translate(${translateX}, ${translateY})`;
+
+        this.div.style.left = left + "px"
+        this.div.style.top = top + "px"
+        this.div.style.transform = transform
+        this.div.style.msTransform = transform
+
+        this.ul = document.createElement("ul")
+        this.ul.style.listStyleType = 'none'
+        this.ul.style.margin = 0
+        this.ul.style.padding = 0
+
+        for (const [ index, message, callback ] of Object.entries(actions).map((a, i) => [i, a[0], a[1]])) {
+            const li = document.createElement("li")
+            li.classList.add("no-select")
+            li.style.padding = "4px 5px"
+            if (index < actions.length - 1) li.style.marginBottom = "2px"
+            li.style.borderRadius = "2px"
+            li.style.cursor = "default"
+            li.innerHTML = message
+
+            this.ul.appendChild(li)
+
+            li.addEventListener("click", () => {
+                this.close()
+                callback()
+            })
+        }
+
+        this.div.appendChild(this.ul)
+        this.div.style.display = "block"
+
+    }
+
+    close() {
+
+        if (!this.ul) return
+        
+        this.div.removeChild(this.ul)
+        this.div.style.display = "none"
+        this.ul = null
+
+    }
+
+    listener () { 
+
+        document.addEventListener("click", () => {
+            this.close()
         })
 
     }
@@ -340,7 +472,7 @@ class DesktopItem {
         this.img.style.margin = "10px"
 
         //APPEND TO GRID
-        this.grid.appendChild( this.img)
+        this.grid.appendChild(this.img)
 
         //CREATE TXT
         this.txt = document.createElement("textarea")
